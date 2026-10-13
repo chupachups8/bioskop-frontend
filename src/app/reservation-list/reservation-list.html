@@ -1,0 +1,172 @@
+<div class="container mt-4">
+
+  <h2 class="mb-4">
+    Rezervacije
+  </h2>
+
+  <a
+  class="btn btn-primary mb-4"
+  routerLink="/reservations/new">
+  Nova rezervacija
+  </a>
+
+  @if (paymentMessage) {
+  <div class="alert alert-success">
+    {{ paymentMessage }}
+  </div>
+  }
+
+  @if (paymentError) {
+    <div class="alert alert-danger">
+      {{ paymentError }}
+    </div>
+  }
+  @if (reservationMessage) {
+    <div class="alert alert-success">
+      {{ reservationMessage }}
+    </div>
+  }
+
+  @if (reservationError) {
+    <div class="alert alert-danger">
+      {{ reservationError }}
+    </div>
+  }
+
+  @if (reservations$ | async; as reservations) {
+
+    @if (reservations.length === 0) {
+
+      <div class="alert alert-info">
+        Trenutno nema rezervacija.
+      </div>
+
+    } @else {
+
+      <div class="row">
+
+        @for (reservation of reservations; track reservation.id) {
+
+          <div class="col-md-6 mb-4">
+
+            <div class="card h-100">
+
+              <div class="card-body">
+
+                <h5 class="card-title">
+                  Rezervacija #{{ reservation.id }}
+                </h5>
+
+                <p>
+                  <strong>Kupac:</strong>
+                  {{ reservation.customer.firstName }}
+                  {{ reservation.customer.lastName }}
+                </p>
+
+                <p>
+                  <strong>Email:</strong>
+                  {{ reservation.customer.email }}
+                </p>
+
+                @if (getScreening(reservation.screeningId); as screening) {
+
+                  <p>
+                    <strong>Film:</strong>
+                    {{ screening.movie.title }}
+                  </p>
+
+                  <p>
+                    <strong>Sala:</strong>
+                    {{ screening.auditorium.name }}
+                  </p>
+
+                  <p>
+                    <strong>Termin:</strong>
+                    {{ screening.startTime | date:'dd.MM.yyyy. HH:mm' }}
+                  </p>
+
+                } @else {
+
+                  <p>
+                    <strong>Projekcija ID:</strong>
+                    {{ reservation.screeningId }}
+                  </p>
+
+                }
+
+                <p>
+                  <strong>Ukupna cena:</strong>
+                  {{ reservation.totalPrice }} RSD
+                </p>
+
+                <p>
+                  <strong>Datum kreiranja:</strong>
+                  {{ reservation.createdAt | date:'dd.MM.yyyy. HH:mm' }}
+                </p>
+
+                @if (reservation.status === 'PENDING') {
+
+                  <span class="badge text-bg-warning">
+                    Na čekanju
+                  </span>
+
+                } @else if (reservation.status === 'CONFIRMED') {
+
+                  <span class="badge text-bg-success">
+                    Potvrđena
+                  </span>
+
+                } @else if (reservation.status === 'CANCELLED') {
+
+                  <span class="badge text-bg-danger">
+                    Otkazana
+                  </span>
+
+                } @else {
+
+                  <span class="badge text-bg-secondary">
+                    {{ reservation.status }}
+                  </span>
+
+                }
+                <div class="mt-3">
+
+                  @if (reservation.status === 'PENDING') {
+
+                    <button
+                      type="button"
+                      class="btn btn-success"
+                      (click)="payReservation(reservation.id)">
+                      Plati
+                    </button>
+
+                  }
+
+                  @if (reservation.status !== 'CANCELLED') {
+
+                    <button
+                      type="button"
+                      class="btn btn-outline-danger ms-2"
+                      (click)="cancelReservation(reservation.id)">
+                      Otkaži
+                    </button>
+
+                  }
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        }
+
+      </div>
+
+    }
+
+  }
+
+</div>

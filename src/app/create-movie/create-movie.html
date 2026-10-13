@@ -1,0 +1,179 @@
+<div class="container mt-4">
+
+  <div class="row justify-content-center">
+
+    <div class="col-md-8">
+
+      <div class="card">
+
+        <div class="card-body">
+
+          <h2 class="mb-4">
+            Dodaj film
+          </h2>
+
+          <form
+            [formGroup]="movieForm"
+            (ngSubmit)="onSubmit()">
+
+
+            <div class="mb-3">
+
+              <label
+                for="title"
+                class="form-label">
+                Naziv filma
+              </label>
+
+              <input
+                id="title"
+                type="text"
+                class="form-control"
+                formControlName="title">
+
+              @if (
+                movieForm.controls.title.touched &&
+                movieForm.controls.title.invalid
+              ) {
+
+                <div class="text-danger mt-1">
+                  Unesite naziv filma.
+                </div>
+
+              }
+
+            </div>
+
+
+            <div class="mb-3">
+
+              <label
+                for="description"
+                class="form-label">
+                Opis
+              </label>
+
+              <textarea
+                id="description"
+                class="form-control"
+                rows="4"
+                formControlName="description">
+              </textarea>
+
+              @if (
+                movieForm.controls.description.touched &&
+                movieForm.controls.description.invalid
+              ) {
+
+                <div class="text-danger mt-1">
+                  Unesite opis filma.
+                </div>
+
+              }
+
+            </div>
+
+
+            <div class="mb-3">
+
+              <label
+                for="duration"
+                class="form-label">
+                Trajanje u minutima
+              </label>
+
+              <input
+                id="duration"
+                type="number"
+                class="form-control"
+                formControlName="duration">
+
+              @if (
+                movieForm.controls.duration.touched &&
+                movieForm.controls.duration.invalid
+              ) {
+
+                <div class="text-danger mt-1">
+                  Unesite ispravno trajanje filma.
+                </div>
+
+              }
+
+            </div>
+
+
+            <div class="mb-3">
+
+              <label
+                for="ageRating"
+                class="form-label">
+                Starosna kategorija
+              </label>
+
+              <input
+                id="ageRating"
+                type="text"
+                class="form-control"
+                formControlName="ageRating"
+                placeholder="Na primer: 12, 16, PG-13">
+
+              @if (
+                movieForm.controls.ageRating.touched &&
+                movieForm.controls.ageRating.invalid
+              ) {
+
+                <div class="text-danger mt-1">
+                  Unesite starosnu kategoriju.
+                </div>
+
+              }
+
+            </div>
+
+
+            <div class="form-check mb-4">
+
+              <input
+                id="active"
+                type="checkbox"
+                class="form-check-input"
+                formControlName="active">
+
+              <label
+                for="active"
+                class="form-check-label">
+                Film je aktivan
+              </label>
+
+            </div>
+
+
+            @if (errorMessage) {
+
+              <div class="alert alert-danger">
+                {{ errorMessage }}
+              </div>
+
+            }
+
+
+            <button
+              type="submit"
+              class="btn btn-primary"
+              [disabled]="movieForm.invalid">
+
+              Dodaj film
+
+            </button>
+
+          </form>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

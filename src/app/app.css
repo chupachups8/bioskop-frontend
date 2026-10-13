@@ -1,0 +1,155 @@
+.custom-navbar {
+  background: linear-gradient(
+    90deg,
+    #151515,
+    #252525
+  );
+
+  padding: 12px 0;
+  box-shadow: 0 3px 14px rgba(0, 0, 0, 0.18);
+}
+
+.navbar-content {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  margin: 0;
+
+  color: white;
+  font-size: 1.45rem;
+  font-weight: 700;
+  text-decoration: none;
+  letter-spacing: 0.5px;
+}
+
+.navbar-brand:hover {
+  color: white;
+}
+
+.brand-icon {
+  font-size: 1.6rem;
+}
+
+.main-navigation {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  flex: 1;
+}
+
+.nav-link {
+  position: relative;
+
+  padding: 8px 12px !important;
+
+  color: #cccccc !important;
+  font-weight: 500;
+
+  border-radius: 7px;
+
+  transition:
+    background-color 0.2s,
+    color 0.2s;
+}
+
+.nav-link:hover {
+  color: white !important;
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+.nav-link.active {
+  color: white !important;
+  background-color: rgba(255, 255, 255, 0.12);
+}
+
+.nav-link.active::after {
+  content: '';
+
+  position: absolute;
+
+  left: 12px;
+  right: 12px;
+  bottom: 3px;
+
+  height: 2px;
+
+  background-color: white;
+
+  border-radius: 2px;
+}
+
+.nav-divider {
+  width: 1px;
+  height: 25px;
+
+  margin: 0 8px;
+
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.admin-link {
+  color: #f0c36b !important;
+}
+
+.admin-link:hover {
+  color: #ffd98a !important;
+}
+
+.account-navigation {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.admin-badge {
+  padding: 5px 9px;
+
+  background-color: #f0c36b;
+  color: #222222;
+
+  border-radius: 6px;
+
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.logout-button {
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  color: white;
+}
+
+.logout-button:hover {
+  background-color: white;
+  color: #222222;
+}
+
+@media (max-width: 900px) {
+
+  .navbar-content {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .main-navigation {
+    order: 3;
+    width: 100%;
+    flex-basis: 100%;
+    flex-wrap: wrap;
+  }
+
+  .account-navigation {
+    margin-left: auto;
+  }
+
+  .nav-divider {
+    display: none;
+  }
+}

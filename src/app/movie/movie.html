@@ -1,0 +1,27 @@
+<div
+  class="card mb-3"
+  [ngClass]="{
+    'active-movie': movie.active,
+    'inactive-movie': !movie.active
+  }"
+>
+  <div class="card-body">
+    <h3 class="card-title">{{ movie.title }}</h3>
+
+    <p class="card-text">{{ movie.description }}</p>
+
+    <p class="card-text">
+      <strong>Trajanje:</strong> {{ movie.duration }} minuta
+    </p>
+
+    <p class="card-text">
+      <strong>Starosna granica:</strong> {{ movie.ageRating }}+
+    </p>
+
+    @if (movie.active) {
+      <span class="badge text-bg-success">Na repertoaru</span>
+    } @else {
+      <span class="badge text-bg-secondary">Nije na repertoaru</span>
+    }
+  </div>
+</div>

@@ -1,0 +1,97 @@
+<div class="container mt-5">
+
+  <div class="row justify-content-center">
+
+    <div class="col-md-5">
+
+      <div class="card">
+
+        <div class="card-body">
+
+          <h2 class="card-title text-center mb-4">
+            Prijava
+          </h2>
+
+          <form
+            [formGroup]="loginForm"
+            (ngSubmit)="onSubmit()">
+
+            <div class="mb-3">
+
+              <label
+                for="username"
+                class="form-label">
+                Korisničko ime
+              </label>
+
+              <input
+                id="username"
+                type="text"
+                class="form-control"
+                formControlName="username">
+
+              @if (
+                loginForm.controls.username.touched &&
+                loginForm.controls.username.invalid
+              ) {
+                <div class="text-danger mt-1">
+                  Korisničko ime je obavezno.
+                </div>
+              }
+
+            </div>
+
+
+            <div class="mb-3">
+
+              <label
+                for="password"
+                class="form-label">
+                Lozinka
+              </label>
+
+              <input
+                id="password"
+                type="password"
+                class="form-control"
+                formControlName="password">
+
+              @if (
+                loginForm.controls.password.touched &&
+                loginForm.controls.password.invalid
+              ) {
+                <div class="text-danger mt-1">
+                  Lozinka je obavezna.
+                </div>
+              }
+
+            </div>
+
+
+            @if (errorMessage) {
+              <div class="alert alert-danger">
+                {{ errorMessage }}
+              </div>
+            }
+
+
+            <button
+              type="submit"
+              class="btn btn-primary w-100"
+              [disabled]="loginForm.invalid">
+
+              Prijavi se
+
+            </button>
+
+          </form>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

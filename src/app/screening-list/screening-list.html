@@ -1,0 +1,87 @@
+<div class="container mt-4">
+
+  <h2 class="mb-4">Projekcije</h2>
+
+  @if (screenings$ | async; as screenings) {
+
+    @if (screenings.length === 0) {
+
+      <div class="alert alert-info">
+        Trenutno nema dostupnih projekcija.
+      </div>
+
+    } @else {
+
+      <div class="row">
+
+        @for (screening of screenings; track screening.id) {
+
+          <div class="col-md-6 mb-4">
+
+            <div class="card h-100">
+
+              <div class="card-body">
+
+                <h4 class="card-title">
+                  {{ screening.movie.title }}
+                </h4>
+
+                <p class="card-text">
+                  {{ screening.movie.description }}
+                </p>
+
+                <p class="card-text">
+                  <strong>Sala:</strong>
+                  {{ screening.auditorium.name }}
+                </p>
+
+                <p class="card-text">
+                  <strong>Kapacitet sale:</strong>
+                  {{ screening.auditorium.capacity }}
+                </p>
+
+                <p class="card-text">
+                  <strong>Datum i vreme:</strong>
+                  {{ screening.startTime | date:'dd.MM.yyyy. HH:mm' }}
+                </p>
+
+                <p class="card-text">
+                  <strong>Trajanje filma:</strong>
+                  {{ screening.movie.duration }} minuta
+                </p>
+
+                <p class="card-text">
+                  <strong>Starosna granica:</strong>
+                  {{ screening.movie.ageRating }}
+                </p>
+
+                <p class="card-text">
+                  <strong>Cena karte:</strong>
+                  {{ screening.ticketPrice }} RSD
+                </p>
+
+                @if (screening.active) {
+                  <span class="badge text-bg-success">
+                    Aktivna projekcija
+                  </span>
+                } @else {
+                  <span class="badge text-bg-secondary">
+                    Neaktivna projekcija
+                  </span>
+                }
+
+              </div>
+
+            </div>
+
+          </div>
+
+        }
+
+      </div>
+
+    }
+
+  }
+
+</div>

@@ -1,0 +1,203 @@
+<div class="container mt-4">
+
+  <div class="row justify-content-center">
+
+    <div class="col-md-8">
+
+      <div class="card">
+
+        <div class="card-body">
+
+          <h2 class="mb-4">
+            Dodaj projekciju
+          </h2>
+
+          <form
+            [formGroup]="screeningForm"
+            (ngSubmit)="onSubmit()">
+
+            <div class="mb-3">
+
+              <label
+                for="movieId"
+                class="form-label">
+                Film
+              </label>
+
+              <select
+                id="movieId"
+                class="form-select"
+                formControlName="movieId">
+
+                <option [ngValue]="null">
+                  Izaberite film
+                </option>
+
+                @for (movie of movies; track movie.id) {
+
+                  <option [ngValue]="movie.id">
+                    {{ movie.title }}
+                  </option>
+
+                }
+
+              </select>
+
+              @if (
+                screeningForm.controls.movieId.touched &&
+                screeningForm.controls.movieId.invalid
+              ) {
+
+                <div class="text-danger mt-1">
+                  Izaberite film.
+                </div>
+
+              }
+
+            </div>
+
+
+            <div class="mb-3">
+
+              <label
+                for="auditoriumId"
+                class="form-label">
+                Sala
+              </label>
+
+              <select
+                id="auditoriumId"
+                class="form-select"
+                formControlName="auditoriumId">
+
+                <option [ngValue]="null">
+                  Izaberite salu
+                </option>
+
+                @for (auditorium of auditoriums; track auditorium.id) {
+
+                  <option [ngValue]="auditorium.id">
+                    {{ auditorium.name }}
+                    - {{ auditorium.capacity }} mesta
+                  </option>
+
+                }
+
+              </select>
+
+              @if (
+                screeningForm.controls.auditoriumId.touched &&
+                screeningForm.controls.auditoriumId.invalid
+              ) {
+
+                <div class="text-danger mt-1">
+                  Izaberite salu.
+                </div>
+
+              }
+
+            </div>
+
+
+            <div class="mb-3">
+
+              <label
+                for="startTime"
+                class="form-label">
+                Datum i vreme
+              </label>
+
+              <input
+                id="startTime"
+                type="datetime-local"
+                class="form-control"
+                formControlName="startTime">
+
+              @if (
+                screeningForm.controls.startTime.touched &&
+                screeningForm.controls.startTime.invalid
+              ) {
+
+                <div class="text-danger mt-1">
+                  Izaberite datum i vreme.
+                </div>
+
+              }
+
+            </div>
+
+
+            <div class="mb-3">
+
+              <label
+                for="ticketPrice"
+                class="form-label">
+                Cena karte
+              </label>
+
+              <input
+                id="ticketPrice"
+                type="number"
+                class="form-control"
+                formControlName="ticketPrice">
+
+              @if (
+                screeningForm.controls.ticketPrice.touched &&
+                screeningForm.controls.ticketPrice.invalid
+              ) {
+
+                <div class="text-danger mt-1">
+                  Unesite ispravnu cenu.
+                </div>
+
+              }
+
+            </div>
+
+
+            <div class="form-check mb-4">
+
+              <input
+                id="active"
+                type="checkbox"
+                class="form-check-input"
+                formControlName="active">
+
+              <label
+                for="active"
+                class="form-check-label">
+                Projekcija je aktivna
+              </label>
+
+            </div>
+
+
+            @if (errorMessage) {
+
+              <div class="alert alert-danger">
+                {{ errorMessage }}
+              </div>
+
+            }
+
+
+            <button
+              type="submit"
+              class="btn btn-primary"
+              [disabled]="screeningForm.invalid">
+
+              Dodaj projekciju
+
+            </button>
+
+          </form>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

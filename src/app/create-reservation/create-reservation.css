@@ -1,0 +1,84 @@
+.screen {
+  max-width: 520px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 12px;
+  text-align: center;
+  background: linear-gradient(to bottom, #343a40, #1f1f1f);
+  color: white;
+  border-radius: 6px 6px 20px 20px;
+  font-weight: bold;
+  letter-spacing: 6px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+}
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.legend div {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.legend-seat {
+  display: inline-block;
+  width: 25px;
+  height: 25px;
+  border-radius: 4px;
+}
+
+.seat-container {
+  overflow-x: auto;
+  padding: 10px 0;
+}
+
+.seat-grid {
+  display: grid;
+  grid-template-columns: repeat(10, 45px);
+  gap: 8px;
+  justify-content: center;
+  min-width: max-content;
+}
+
+.seat {
+  width: 45px;
+  height: 45px;
+  border: none;
+  border-radius: 7px;
+  font-size: 12px;
+  font-weight: bold;
+  transition: transform 0.15s ease;
+}
+
+.seat:not(:disabled):hover {
+  transform: scale(1.08);
+}
+
+.seat-free {
+  background-color: #198754;
+  color: white;
+}
+
+.seat-free:hover {
+  background-color: #157347;
+}
+
+.seat-selected {
+  background-color: #0d6efd;
+  color: white;
+}
+
+.seat-reserved {
+  background-color: #dc3545;
+  color: white;
+  cursor: not-allowed;
+}
+
+.seat:disabled {
+  opacity: 1;
+}

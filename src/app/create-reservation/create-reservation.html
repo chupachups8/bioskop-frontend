@@ -1,0 +1,250 @@
+<div class="container mt-4">
+
+  <div class="row justify-content-center">
+
+    <div class="col-lg-10">
+
+      <div class="card">
+
+        <div class="card-body">
+
+          <h2 class="mb-4">
+            Nova rezervacija
+          </h2>
+
+          <form
+            [formGroup]="reservationForm"
+            (ngSubmit)="onSubmit()">
+
+            <div class="mb-3">
+
+              <label
+                for="customerId"
+                class="form-label">
+                Kupac
+              </label>
+
+              <select
+                id="customerId"
+                class="form-select"
+                formControlName="customerId">
+
+                <option [ngValue]="null">
+                  Izaberite kupca
+                </option>
+
+                @for (customer of customers; track customer.id) {
+
+                  <option [ngValue]="customer.id">
+
+                    {{ customer.firstName }}
+                    {{ customer.lastName }}
+                    -
+                    {{ customer.email }}
+
+                  </option>
+
+                }
+
+              </select>
+
+              @if (
+                reservationForm.controls.customerId.touched &&
+                reservationForm.controls.customerId.invalid
+              ) {
+
+                <div class="text-danger mt-1">
+                  Izaberite kupca.
+                </div>
+
+              }
+
+            </div>
+
+            <div class="mb-4">
+
+              <label
+                for="screeningId"
+                class="form-label">
+                Projekcija
+              </label>
+
+              <select
+                id="screeningId"
+                class="form-select"
+                formControlName="screeningId"
+                (change)="onScreeningChange()">
+
+                <option [ngValue]="null">
+                  Izaberite projekciju
+                </option>
+
+                @for (screening of screenings; track screening.id) {
+
+                  <option [ngValue]="screening.id">
+
+                    {{ screening.movie.title }}
+                    -
+                    {{ screening.startTime | date:'dd.MM.yyyy. HH:mm' }}
+                    -
+                    {{ screening.auditorium.name }}
+                    -
+                    {{ screening.ticketPrice }} RSD
+
+                  </option>
+
+                }
+
+              </select>
+
+              @if (
+                reservationForm.controls.screeningId.touched &&
+                reservationForm.controls.screeningId.invalid
+              ) {
+
+                <div class="text-danger mt-1">
+                  Izaberite projekciju.
+                </div>
+
+              }
+
+            </div>
+
+            <div class="mb-4">
+
+              <h5 class="mb-3">
+                Izaberite sedišta
+              </h5>
+
+              @if (allSeats.length === 0) {
+
+                <div class="alert alert-info">
+                  Izaberite projekciju da biste videli raspored sedišta.
+                </div>
+
+              } @else {
+
+                <div class="screen mb-4">
+                  PLATNO
+                </div>
+
+                <div class="legend mb-4">
+
+                  <div>
+                    <span class="legend-seat seat-free"></span>
+                    Slobodno
+                  </div>
+
+                  <div>
+                    <span class="legend-seat seat-selected"></span>
+                    Izabrano
+                  </div>
+
+                  <div>
+                    <span class="legend-seat seat-reserved"></span>
+                    Zauzeto
+                  </div>
+
+                </div>
+
+                <div class="seat-container">
+
+                  <div class="seat-grid">
+
+                    @for (seat of allSeats; track seat) {
+
+                      <button
+                        type="button"
+                        class="seat"
+                        [ngClass]="{
+                          'seat-free':
+                            !isReserved(seat) &&
+                            !isSelected(seat),
+
+                          'seat-selected':
+                            isSelected(seat),
+
+                          'seat-reserved':
+                            isReserved(seat)
+                        }"
+                        [disabled]="isReserved(seat)"
+                        (click)="toggleSeat(seat)">
+
+                        {{ seat }}
+
+                      </button>
+
+                    }
+
+                  </div>
+
+                </div>
+
+                <div class="mt-4">
+
+                  <p>
+                    <strong>Izabrana sedišta:</strong>
+
+                    @if (selectedSeats.length > 0) {
+                      {{ selectedSeats.join(', ') }}
+                    } @else {
+                      Nijedno
+                    }
+                  </p>
+
+                  <p>
+                    <strong>Broj karata:</strong>
+                    {{ selectedSeats.length }}
+                  </p>
+
+                  @if (getSelectedScreening(); as screening) {
+
+                    <p>
+                      <strong>Cena jedne karte:</strong>
+                      {{ screening.ticketPrice }} RSD
+                    </p>
+
+                  }
+
+                  <p class="fs-5">
+                    <strong>Ukupna cena:</strong>
+                    {{ getTotalPrice() }} RSD
+                  </p>
+
+                </div>
+
+              }
+
+            </div>
+
+            @if (errorMessage) {
+
+              <div class="alert alert-danger">
+                {{ errorMessage }}
+              </div>
+
+            }
+
+            <button
+              type="submit"
+              class="btn btn-primary"
+              [disabled]="
+                reservationForm.invalid ||
+                selectedSeats.length === 0
+              ">
+
+              Rezerviši
+
+            </button>
+
+          </form>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
